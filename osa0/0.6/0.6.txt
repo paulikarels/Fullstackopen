@@ -1,0 +1,19 @@
+käyttäjä->selain: 
+
+note left of selain:
+käyttäjä kirjoittaa tekstikenttään ja 
+painaa tallenna nappia
+end note
+
+note right of selain:
+selaimen JavaScript-koodi estää
+lomakkeen lähetyksen oletusarvoisen toiminnan
+end note
+
+note right of selain:
+selaimessa oleva JavaScript-koodi 
+lähettää tehdyn muistiinpanon palvelimelle
+end note
+
+selain->palvelin:  POST https://fullstack-exampleapp.herokuapp.com/new_note_spa
+palvelin-->selain: Status Code 201, Content-type: application/json

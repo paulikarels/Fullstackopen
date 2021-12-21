@@ -1,0 +1,30 @@
+käyttäjä->selain: 
+
+note left of selain:
+käyttäjä kirjoittaa tekstikenttään ja 
+painaa tallenna nappia
+end note
+
+
+selain->palvelin:  POST https://fullstack-exampleapp.herokuapp.com/new_note
+palvelin-->selain: Status Code 302
+selain->palvelin:  GET https://fullstack-exampleapp.herokuapp.com/notes
+palvelin-->selain: HTML-koodi
+selain->palvelin:  GET https://fullstack-exampleapp.herokuapp.com/main.css
+palvelin-->selain: main.css
+selain->palvelin:  GET https://fullstack-exampleapp.herokuapp.com/main.js
+palvelin-->selain: main.js
+
+
+note over selain:
+selain alkaa suorittaa js-koodia
+joka pyytää JSON-datan palvelimelta
+end note
+
+selain->palvelin:  GET https://fullstack-exampleapp.herokuapp.com/data.json
+palvelin-->selain:data.json
+
+note over selain:
+selain suorittaa tapahtumankäsittelijän
+joka renderöi muistiinpanot näytölle
+end note
