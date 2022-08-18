@@ -1,0 +1,11 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RtYW4xMjMiLCJpZCI6IjYyZmJkZjlkZDJlMDRkOTFlOTdhZTQyYyIsImlhdCI6MTY2MDgzNjgxNCwiZXhwIjoxNjYwODQwNDE0fQ.b67n-tiNgsYRPPRzcUjZQfLCOIJfQN7k02eH1Blyu7I
+
+{
+    "title": "delete me",
+    "author": "Testi Tero",
+    "url": "http://localhost:3003/api/blogs",
+    "likes": 0,
+    "userId": "62fbdf9dd2e04d91e97ae42c"
+}
