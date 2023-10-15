@@ -97,7 +97,7 @@ let books = [
 ]
 
 /*
-  you can remove the placeholder query once your first one has been implemented 
+  you can remove the placeholder query once your first one has been implemented  
 */
 
 const typeDefs = `
@@ -137,6 +137,7 @@ const typeDefs = `
       name: String!
       born: Int
     ): Author
+
     editAuthor(
       name: String!
       setBornTo: Int
@@ -207,7 +208,7 @@ const resolvers = {
     editAuthor: (root, args) => {
       if (!args.setBornTo) return null
       const author = authors.find(a => a.name === args.name)
-      console.log(author)
+      //console.log(author)
       if (!author) {
         return null
       }
