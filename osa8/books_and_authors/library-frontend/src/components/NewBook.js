@@ -1,37 +1,30 @@
 import { useState } from 'react'
-import { gql, useMutation } from '@apollo/client'
-
-
-const ADD_BOOK = gql`
-mutation createBook($title: String!, $author: String!, $published: Int!, $genres: [String!]){
-  addBook(
-    title: $title,
-    author: $author,
-    published: $published,
-    genres: $genres
-  ) {
-    title
-    author {
-      name
-    }
-    published
-    genres
-  }
-}
-`
+import {  useMutation } from '@apollo/client'
+import { ADD_BOOK } from '../queries'
+//import { useBookSubscription } from './BookSubscriptions'
+import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
+import { useApolloClient } from '@apollo/client'
 
 const NewBook = (props) => {
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [published, setPublished] = useState('')
-  const [genre, setGenre] = useState('')
+  const [title, setTitle] = useState('Joever')
+  const [author, setAuthor] = useState('Joe')
+  const [published, setPublished] = useState(2018)
+  const [genre, setGenre] = useState('Joe')
   const [genres, setGenres] = useState([])
   const [ createBook ] = useMutation(ADD_BOOK)
+  const client = useApolloClient() 
+
+  //useBookSubscription(client)
+
+  loadDevMessages();
+  loadErrorMessages();
 
   if (!props.show) {
     return null
   }
-
+  
+  
+  
   const submit = async (event) => {
     event.preventDefault()
     //console.log(typeof(parseInt(published)))

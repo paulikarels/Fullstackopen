@@ -4,11 +4,19 @@ import Books from './components/Books'
 import NewBook from './components/NewBook'
 import LoginForm from './components/LoginForm'
 import Recommend from './components/Recommend'
-
+import { useApolloClient, useSubscription } from '@apollo/client'
+import { BOOK_ADDED } from './queries'
 const App = () => {
-  const [page, setPage] = useState('authors')
+  const [page, setPage] = useState('login')
   const [errorMessage, setErrorMessage] = useState(null)
   const [token, setToken] = useState(null)
+  const client = useApolloClient()
+
+  useSubscription(BOOK_ADDED, {
+    onSubscriptionData: ({ subscriptionData }) => {
+      alert(`${subscriptionData.data.bookAdded.title} added successfully`)
+    }
+  })
 
   const notify = (message) => {
     setErrorMessage(message)
@@ -46,6 +54,7 @@ const App = () => {
   const logoutUser = () => {
     window.localStorage.clear()
     setToken(null)
+    client.resetStore()
   }
 
   return (
