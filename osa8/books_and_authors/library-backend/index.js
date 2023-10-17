@@ -218,10 +218,11 @@ const resolvers = {
     bookCount: async () => await Book.countDocuments({}) ,
     authorCount: async () => await Author.countDocuments({}),
     allBooks: async (root, args, context) => {
-      if (Object.keys(args).length === 0 ) {
-        return  await Book.find({})
-      }
 
+      if (Object.keys(args).length === 0 ) {
+        const books = await Book.find({}).populate('author')
+        return  books
+      }
       let author = await Author.findOne({ name: args.author })
 
       if (!author) {
@@ -235,8 +236,13 @@ const resolvers = {
       
       let book = await Book.find({author: author._id}).populate('author')
       book.author = author
-      //console.log(book)
+
       return book
+    },
+    allAuthors: async (root, args) => {
+
+      const authors = await Author.find({})
+      return authors
     },
     me: (root, args, context) => {
       return context.currentUser
@@ -244,7 +250,7 @@ const resolvers = {
   },
   Mutation: {
     addBook: async (root, args, context) => {
-     
+      console.log("book")
       const currentUser = context.currentUser
       if (!currentUser) {
         throw new GraphQLError('not authenticated', {
@@ -284,6 +290,7 @@ const resolvers = {
       })
 
       try {
+
         await book.save()
       } catch (error) {
         throw new GraphQLError(`Saving book failed`, {
@@ -307,7 +314,8 @@ const resolvers = {
         })
       }
 
-      const author = await Author.findOneAndUpdate(args.author, { name: args.author, born: args.setBornTo},{ new: true } ) 
+      const author = await Author.findOneAndUpdate({name: args.name}, { name: args.name, born: args.setBornTo},{ new: true } ) 
+
       try {
         await author.save()
       } catch (error) {

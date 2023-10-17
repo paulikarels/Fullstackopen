@@ -3,7 +3,7 @@ import { gql, useMutation } from '@apollo/client'
 
 
 const ADD_BOOK = gql`
-mutation editBook ($title: String!, $author: String!, $published: Int!, $genres: [String!]){
+mutation createBook($title: String!, $author: String!, $published: Int!, $genres: [String!]){
   addBook(
     title: $title,
     author: $author,
@@ -11,7 +11,9 @@ mutation editBook ($title: String!, $author: String!, $published: Int!, $genres:
     genres: $genres
   ) {
     title
-    author
+    author {
+      name
+    }
     published
     genres
   }
@@ -82,7 +84,7 @@ const NewBook = (props) => {
             add genre
           </button>
         </div>
-        <div>genres: {genres.join(' ')}</div>
+        <div>genres: {genres.join(', ')}</div>
         <button type="submit">create book</button>
       </form>
     </div>
