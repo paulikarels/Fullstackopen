@@ -9,11 +9,16 @@ interface Result {
   
 }
 
+export const calculateExercises  = (array: Array<number>, target: number):Result => {
+  console.log(process.argv.length)
+  if (process.argv.length > 5 && !isNaN(Number(process.argv[2]))) {
+    target = Number(process.argv[2])
+    array = []
+    process.argv.slice(3).forEach(element => {
+      array.push(Number(element))
+    });
+  }
 
-
-
-const calculateExercises  = (array: Array<number>, target: number):Result => {
-  
   let rating = 0
   const average = array.reduce((a,b) => a +b)/array.length
   let ratingDescription = ""
@@ -32,7 +37,7 @@ const calculateExercises  = (array: Array<number>, target: number):Result => {
       rating = 1
       break
   }
-  //faster computing if all declared and done in one loop
+  //faster computing if all declaresd and done in one loop
   return {
     periodLength:array.length, 
     trainingDays:array.filter(arr => arr != 0).length,
@@ -44,14 +49,4 @@ const calculateExercises  = (array: Array<number>, target: number):Result => {
   }
 }
 
-const exerciseArray:Array<number> = []
-const target = Number(process.argv[2])
-
-//console.log(process.argv.slice(3))
-process.argv.slice(3).forEach(element => {
-  exerciseArray.push(Number(element))
-});
-
-console.log(calculateExercises(exerciseArray, target))
-
-
+console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2))
